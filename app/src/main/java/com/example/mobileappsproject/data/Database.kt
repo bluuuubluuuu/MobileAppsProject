@@ -13,7 +13,7 @@ import com.example.mobileappsproject.data.entities.*
         LeaveType::class,
         LeaveApplication::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

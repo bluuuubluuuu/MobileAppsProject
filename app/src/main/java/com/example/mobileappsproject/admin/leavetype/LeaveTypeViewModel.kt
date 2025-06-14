@@ -1,4 +1,4 @@
-package com.example.mobileappsproject.leavetype
+package com.example.mobileappsproject.admin.leavetype
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

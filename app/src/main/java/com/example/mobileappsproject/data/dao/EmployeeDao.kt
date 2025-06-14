@@ -15,9 +15,15 @@ interface EmployeeDao {
     @Delete
     suspend fun deleteEmployee(employee: Employee)
 
+    @Query("SELECT * FROM employee WHERE email = :email LIMIT 1")
+    suspend fun getEmployeeByEmail(email: String): Employee?
+
     @Query("SELECT * FROM Employee")
     suspend fun getAllEmployees(): List<Employee>
 
     @Query("SELECT * FROM Employee WHERE employeeID = :id")
     suspend fun getEmployeeById(id: Int): Employee?
+
+    @Query("SELECT * FROM Employee WHERE email = :email AND password = :password")
+    suspend fun login(email: String, password: String): Employee?
 }

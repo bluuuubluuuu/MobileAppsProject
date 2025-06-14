@@ -1,17 +1,20 @@
-package com.example.mobileappsproject.leavetype
+package com.example.mobileappsproject.admin.leavetype
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.mobileappsproject.data.entities.LeaveType
 
 @Composable
-fun LeaveTypeScreen(viewModel: LeaveTypeViewModel) {
+fun LeaveTypeScreen(viewModel: LeaveTypeViewModel, navController: NavController? = null) {
     val leaveTypes by viewModel.leaveTypes.collectAsState()
 
     var name by remember { mutableStateOf("") }
@@ -21,8 +24,29 @@ fun LeaveTypeScreen(viewModel: LeaveTypeViewModel) {
     var isEditing by remember { mutableStateOf(false) }
     var editingId by remember { mutableStateOf(0) }
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(if (isEditing) "Edit Leave Type" else "Add Leave Type", style = MaterialTheme.typography.titleLarge)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Spacer(modifier = Modifier.height(16.dp)) // Push content down
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            IconButton(onClick = {
+                navController?.popBackStack()
+            }) {
+                Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+            }
+            Text(
+                text = if (isEditing) "Edit Leave Type" else "Add Leave Type",
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         OutlinedTextField(value = name, onValueChange = { name = it }, label = { Text("Leave Type Name") }, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(value = description, onValueChange = { description = it }, label = { Text("Description") }, modifier = Modifier.fillMaxWidth())
